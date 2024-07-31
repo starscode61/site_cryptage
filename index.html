@@ -12,34 +12,24 @@
         <div class="flex-container">
             <div class="section">
                 <h2>Crypter</h2>
-                <label for="encryptInputText">Texte à crypter</label>
                 <textarea id="encryptInputText" placeholder="Entrez le texte à crypter..."></textarea>
-                <label for="encryptPassword">Mot de passe</label>
-                <input type="password" id="encryptPassword" placeholder="Entrez votre mot de passe (si applicable)...">
-                <label for="encryptMethodSelect">Méthode de cryptage</label>
+                <input type="text" id="encryptPassword" placeholder="Entrez votre mot de passe (si applicable)...">
                 <select id="encryptMethodSelect">
                     <option value="aes-gcm">AES-GCM</option>
                     <option value="base64">Base64</option>
-                    <!-- Ajoutez d'autres méthodes ici -->
                 </select>
                 <button id="encryptBtn">Crypter</button>
-                <label for="encryptOutputText">Texte crypté</label>
                 <textarea id="encryptOutputText" placeholder="Texte crypté apparaîtra ici..." readonly></textarea>
             </div>
             <div class="section">
                 <h2>Décrypter</h2>
-                <label for="decryptInputText">Texte à décrypter</label>
                 <textarea id="decryptInputText" placeholder="Entrez le texte à décrypter..."></textarea>
-                <label for="decryptPassword">Mot de passe</label>
-                <input type="password" id="decryptPassword" placeholder="Entrez votre mot de passe (si applicable)...">
-                <label for="decryptMethodSelect">Méthode de décryptage</label>
+                <input type="text" id="decryptPassword" placeholder="Entrez votre mot de passe (si applicable)...">
                 <select id="decryptMethodSelect">
                     <option value="aes-gcm">AES-GCM</option>
                     <option value="base64">Base64</option>
-                    <!-- Ajoutez d'autres méthodes ici -->
                 </select>
                 <button id="decryptBtn">Décrypter</button>
-                <label for="decryptOutputText">Texte décrypté</label>
                 <textarea id="decryptOutputText" placeholder="Texte décrypté apparaîtra ici..." readonly></textarea>
             </div>
         </div>
