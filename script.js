@@ -93,80 +93,62 @@ function decodeBase64(ciphertext) {
     }
 }
 
+// Function to toggle password visibility
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    if (field.type === "password") {
+        field.type = "text";
+    } else {
+        field.type = "password";
+    }
+}
+
 // Event listeners for encrypt button
 document.getElementById('encryptBtn').addEventListener('click', async () => {
-    const plaintext = document.getElementById('encryptInputText').value.trim();
-    const password = document.getElementById('encryptPassword').value.trim();
+    const plaintext = document.getElementById('encryptInputText').value;
+    const password = document.getElementById('encryptPassword').value;
     const method = document.getElementById('encryptMethodSelect').value;
     let ciphertext = '';
 
-    if (!plaintext) {
-        alert('Le texte à crypter ne peut pas être vide.');
-        return;
+    switch (method) {
+        case 'aes-gcm':
+            ciphertext = await encryptAESGCM(password, plaintext);
+            break;
+        case 'base64':
+            ciphertext = encodeBase64(plaintext);
+            break;
+        // Add other methods here
+        default:
+            alert('Méthode de cryptage non supportée');
+            return;
     }
 
-    if (method === 'aes-gcm' && !password) {
-        alert('Le mot de passe est requis pour AES-GCM.');
-        return;
-    }
-
-    try {
-        switch (method) {
-            case 'aes-gcm':
-                ciphertext = await encryptAESGCM(password, plaintext);
-                break;
-            case 'base64':
-                ciphertext = encodeBase64(plaintext);
-                break;
-            default:
-                alert('Méthode de cryptage non supportée');
-                return;
-        }
-
-        document.getElementById('encryptOutputText').value = ciphertext;
-    } catch (error) {
-        console.error('Erreur lors du cryptage:', error);
-        alert('Une erreur est survenue lors du cryptage.');
-    }
+    document.getElementById('encryptOutputText').value = ciphertext;
 });
 
 // Event listeners for decrypt button
 document.getElementById('decryptBtn').addEventListener('click', async () => {
-    const ciphertext = document.getElementById('decryptInputText').value.trim();
-    const password = document.getElementById('decryptPassword').value.trim();
+    const ciphertext = document.getElementById('decryptInputText').value;
+    const password = document.getElementById('decryptPassword').value;
     const method = document.getElementById('decryptMethodSelect').value;
     let plaintext = '';
 
-    if (!ciphertext) {
-        alert('Le texte à décrypter ne peut pas être vide.');
-        return;
+    switch (method) {
+        case 'aes-gcm':
+            plaintext = await decryptAESGCM(password, ciphertext);
+            break;
+        case 'base64':
+            plaintext = decodeBase64(ciphertext);
+            break;
+        // Add other methods here
+        default:
+            alert('Méthode de cryptage non supportée ou non décryptable');
+            return;
     }
 
-    if (method === 'aes-gcm' && !password) {
-        alert('Le mot de passe est requis pour AES-GCM.');
-        return;
-    }
-
-    try {
-        switch (method) {
-            case 'aes-gcm':
-                plaintext = await decryptAESGCM(password, ciphertext);
-                break;
-            case 'base64':
-                plaintext = decodeBase64(ciphertext);
-                break;
-            default:
-                alert('Méthode de décryptage non supportée');
-                return;
-        }
-
-        if (plaintext === null) {
-            alert('Le décryptage a échoué.');
-        } else {
-            document.getElementById('decryptOutputText').value = plaintext;
-        }
-    } catch (error) {
-        console.error('Erreur lors du décryptage:', error);
-        alert('Une erreur est survenue lors du décryptage.');
+    if (plaintext === null) {
+        alert('Le décryptage a échoué');
+    } else {
+        document.getElementById('decryptOutputText').value = plaintext;
     }
 });
