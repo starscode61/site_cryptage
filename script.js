@@ -107,7 +107,6 @@ document.getElementById('encryptBtn').addEventListener('click', async () => {
         case 'base64':
             ciphertext = encodeBase64(plaintext);
             break;
-        // Add other methods here
         default:
             alert('Méthode de cryptage non supportée');
             return;
@@ -130,7 +129,6 @@ document.getElementById('decryptBtn').addEventListener('click', async () => {
         case 'base64':
             plaintext = decodeBase64(ciphertext);
             break;
-        // Add other methods here
         default:
             alert('Méthode de cryptage non supportée ou non décryptable');
             return;
